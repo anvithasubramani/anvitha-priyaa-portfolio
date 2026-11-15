@@ -1,79 +1,97 @@
-
 /* =========================================
    ANVITHA PRIYAA VELLAL SUBRAMANI
-   Personal Portfolio — JavaScript
-   ========================================= */
+   PORTFOLIO INTERACTIONS
+========================================= */
+
+"use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* 1. Automatic footer year */
+  // Automatically update the copyright year.
+  const year = document.getElementById("year");
 
-  const yearElement = document.getElementById("year");
-
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+  if (year) {
+    year.textContent = new Date().getFullYear();
   }
 
+  // Accessible mobile navigation.
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.getElementById("nav-links");
 
-  /* 2. Mobile navigation */
+  if (toggle && nav) {
 
-  const menuToggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-  const navItems = document.querySelectorAll(".nav-links a");
+    const closeMenu = () => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+    };
 
-  if (menuToggle && navLinks) {
+    toggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
 
-    menuToggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-expanded", String(isOpen));
 
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
+      toggle.setAttribute(
         "aria-label",
-        isOpen ? "Close navigation menu" : "Open navigation menu"
+        isOpen ? "Close navigation" : "Open navigation"
       );
-
-      menuToggle.textContent = isOpen ? "×" : "☰";
     });
 
-    navItems.forEach((item) => {
-      item.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation menu");
-        menuToggle.textContent = "☰";
-      });
+    // Close menu after selecting a navigation link.
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
     });
 
-    document.addEventListener("click", (event) => {
+    // Close menu with Escape key.
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+
+    // Close menu when clicking outside.
+    document.addEventListener("click", event => {
       if (
-        !navLinks.contains(event.target) &&
-        !menuToggle.contains(event.target)
+        !nav.contains(event.target) &&
+        !toggle.contains(event.target)
       ) {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation menu");
-        menuToggle.textContent = "☰";
+        closeMenu();
+      }
+    });
+
+    // Close mobile menu when switching to desktop width.
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 700) {
+        closeMenu();
       }
     });
   }
 
+  // Subtle reveal-on-scroll animation.
+  const revealItems = document.querySelectorAll(".reveal");
 
-  /* 3. Scroll reveal animations */
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
-  const revealElements = document.querySelectorAll(".reveal");
+  // Ensure content remains visible if animation is unsupported.
+  if (!("IntersectionObserver" in window) || reduceMotion) {
 
-  if ("IntersectionObserver" in window) {
+    revealItems.forEach(item => {
+      item.classList.add("is-visible");
+    });
 
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
+  } else {
 
-        entries.forEach((entry) => {
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+
+        entries.forEach(entry => {
 
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
+            entry.target.classList.add("is-visible");
+            currentObserver.unobserve(entry.target);
           }
 
         });
@@ -81,341 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px"
+        rootMargin: "0px 0px -35px 0px"
       }
     );
 
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
-
-  } else {
-
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
+    revealItems.forEach(item => {
+      observer.observe(item);
     });
 
   }
-
-
-  /* 4. Active navigation link while scrolling */
-
-  const pageSections = document.querySelectorAll("main section[id]");
-
-  if ("IntersectionObserver" in window) {
-
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-
-        entries.forEach((entry) => {
-
-          if (entry.isIntersecting) {
-
-            const sectionId = entry.target.getAttribute("id");
-
-            navItems.forEach((link) => {
-
-              const isActive =
-                link.getAttribute("href") === `#${sectionId}`;
-
-              link.classList.toggle("active", isActive);
-
-            });
-
-          }
-
-        });
-
-      },
-      {
-        rootMargin: "-35% 0px -55% 0px"
-      }
-    );
-
-    pageSections.forEach((section) => {
-      sectionObserver.observe(section);
-    });
-
-  }
-
-
-  /* 5. GitHub repository directory */
-
-  const githubUsername = "anvithasubramani";
-
-  const githubGrid = document.getElementById("github-grid");
-  const githubStatus = document.getElementById("github-status");
-
-  const searchInput = document.getElementById("github-search");
-  const languageFilter = document.getElementById("language-filter");
-  const sortFilter = document.getElementById("sort-filter");
-
-  let repositories = [];
-
-  async function fetchRepositories() {
-
-    if (!githubGrid || !githubStatus) return;
-
-    githubStatus.textContent = "Loading GitHub repositories...";
-
-    githubGrid.innerHTML = "";
-
-    try {
-
-      const allRepositories = [];
-      let page = 1;
-      let hasMore = true;
-
-      while (hasMore) {
-
-        const response = await fetch(
-          `https://api.github.com/users/${githubUsername}/repos?type=owner&per_page=100&page=${page}&sort=updated`
-        );
-
-        if (!response.ok) {
-
-          if (response.status === 403) {
-            throw new Error(
-              "GitHub rate limit reached. Please try again later."
-            );
-          }
-
-          throw new Error(
-            `Unable to load repositories (${response.status}).`
-          );
-
-        }
-
-        const pageData = await response.json();
-
-        allRepositories.push(...pageData);
-
-        hasMore = pageData.length === 100;
-        page++;
-
-      }
-
-      repositories = allRepositories.filter((repo) => !repo.fork);
-
-      populateLanguageFilter();
-      displayRepositories();
-
-    } catch (error) {
-
-      console.error("GitHub API error:", error);
-
-      githubStatus.textContent =
-        error.message ||
-        "Unable to load GitHub repositories. Please visit my GitHub profile.";
-
-      githubGrid.innerHTML = `
-        <div class="github-card">
-          <h3>Explore my GitHub</h3>
-          <p>View my public repositories, experiments and technical projects.</p>
-          <a href="https://github.com/${githubUsername}"
-             target="_blank"
-             rel="noopener noreferrer">
-            Visit GitHub profile ↗
-          </a>
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  /* 6. Populate programming language filter */
-
-  function populateLanguageFilter() {
-
-    if (!languageFilter) return;
-
-    const languages = [
-      ...new Set(
-        repositories
-          .map((repo) => repo.language)
-          .filter(Boolean)
-      )
-    ].sort();
-
-    languageFilter.innerHTML =
-      `<option value="all">All languages</option>`;
-
-    languages.forEach((language) => {
-
-      const option = document.createElement("option");
-
-      option.value = language;
-      option.textContent = language;
-
-      languageFilter.appendChild(option);
-
-    });
-
-  }
-
-
-  /* 7. Display repository cards */
-
-  function displayRepositories() {
-
-    if (!githubGrid || !githubStatus) return;
-
-    const searchTerm = searchInput
-      ? searchInput.value.toLowerCase().trim()
-      : "";
-
-    const selectedLanguage = languageFilter
-      ? languageFilter.value
-      : "all";
-
-    const selectedSort = sortFilter
-      ? sortFilter.value
-      : "updated";
-
-    let filteredRepositories = repositories.filter((repo) => {
-
-      const matchesSearch =
-        repo.name.toLowerCase().includes(searchTerm) ||
-        (repo.description || "").toLowerCase().includes(searchTerm) ||
-        (repo.language || "").toLowerCase().includes(searchTerm);
-
-      const matchesLanguage =
-        selectedLanguage === "all" ||
-        repo.language === selectedLanguage;
-
-      return matchesSearch && matchesLanguage;
-
-    });
-
-
-    /* Sorting */
-
-    if (selectedSort === "stars") {
-
-      filteredRepositories.sort(
-        (a, b) => b.stargazers_count - a.stargazers_count
-      );
-
-    } else if (selectedSort === "name") {
-
-      filteredRepositories.sort(
-        (a, b) => a.name.localeCompare(b.name)
-      );
-
-    } else {
-
-      filteredRepositories.sort(
-        (a, b) =>
-          new Date(b.updated_at) - new Date(a.updated_at)
-      );
-
-    }
-
-
-    /* Empty state */
-
-    if (filteredRepositories.length === 0) {
-
-      githubGrid.innerHTML = `
-        <div class="github-card">
-          <h3>No repositories found</h3>
-          <p>Try another search term or language filter.</p>
-        </div>
-      `;
-
-      githubStatus.textContent = "No matching repositories.";
-
-      return;
-
-    }
-
-
-    /* Render repository cards */
-
-    githubGrid.innerHTML = "";
-
-    filteredRepositories.forEach((repo) => {
-
-      const card = document.createElement("article");
-
-      card.className = "github-card";
-
-      const title = document.createElement("h3");
-
-      const link = document.createElement("a");
-
-      link.href = repo.html_url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = repo.name;
-
-      title.appendChild(link);
-
-
-      const description = document.createElement("p");
-
-      description.textContent =
-        repo.description || "Explore this project on GitHub.";
-
-
-      const meta = document.createElement("div");
-
-      meta.className = "github-meta";
-
-
-      const language = document.createElement("span");
-
-      language.textContent = repo.language || "Other";
-
-
-      const stars = document.createElement("span");
-
-      stars.textContent = `★ ${repo.stargazers_count}`;
-
-
-      meta.appendChild(language);
-      meta.appendChild(stars);
-
-      card.appendChild(title);
-      card.appendChild(description);
-      card.appendChild(meta);
-
-      githubGrid.appendChild(card);
-
-    });
-
-    githubStatus.textContent =
-      `Showing ${filteredRepositories.length} of ${repositories.length} public repositories.`;
-
-  }
-
-
-  /* 8. GitHub filter events */
-
-  if (searchInput) {
-    searchInput.addEventListener("input", displayRepositories);
-  }
-
-  if (languageFilter) {
-    languageFilter.addEventListener("change", displayRepositories);
-  }
-
-  if (sortFilter) {
-    sortFilter.addEventListener("change", displayRepositories);
-  }
-
-
-  /* 9. Load GitHub repositories */
-
-  fetchRepositories();
-
-
-  /* 10. Current year and page initialisation complete */
-
-  console.log(
-    "Portfolio loaded successfully — Anvitha Priyaa Vellal Subramani"
-  );
 
 });
