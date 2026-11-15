@@ -4,29 +4,976 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio of Anvitha Priyaa Vellal Subramani — Data Science, Business Analytics and Applied AI.">
-  <meta name="theme-color" content="#f5f1e9">
-  <title>Anvitha Priyaa | Data Science & Analytics</title>
+
+  <title>Anvitha Priyaa Vellal Subramani | Data Science & AI</title>
+  <meta name="description" content="Portfolio of Anvitha Priyaa Vellal Subramani — MSc Data Science graduate from Queen Mary University of London, showcasing projects in AI, machine learning, data science and software engineering. Open to UK opportunities.">
+  <meta name="theme-color" content="#101313">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg: #101313;
+      --surface: #171c1b;
+      --surface-light: #1d2422;
+      --text: #f1f2ed;
+      --muted: #a2aaa5;
+      --subtle: #69736e;
+      --accent: #8be0c3;
+      --accent-dark: #193d34;
+      --line: rgba(255,255,255,0.10);
+      --font: "DM Sans", sans-serif;
+      --heading: "Manrope", sans-serif;
+      --mono: "DM Mono", monospace;
+      --max: 1160px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #101313;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin: auto;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section {
+      padding: 112px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 54px;
+    }
+
+    .section-heading h2 {
+      font: 700 clamp(30px, 4vw, 47px)/1.15 var(--heading);
+      letter-spacing: -1.8px;
+      margin-top: 14px;
+    }
+
+    .section-heading p {
+      max-width: 390px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    /* NAVIGATION */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(16,19,19,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: var(--max);
+      margin: auto;
+      padding: 0 24px;
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font: 800 15px var(--heading);
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links .nav-contact {
+      border: 1px solid rgba(139,224,195,.5);
+      color: var(--accent);
+      padding: 9px 16px;
+      border-radius: 4px;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 690px;
+      display: flex;
+      align-items: center;
+      padding: 105px 0 115px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: rgba(64,155,126,.09);
+      filter: blur(100px);
+      right: -100px;
+      top: 40px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.5fr .75fr;
+      gap: 65px;
+      align-items: center;
+      position: relative;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid rgba(139,224,195,.25);
+      background: rgba(139,224,195,.06);
+      border-radius: 3px;
+      margin-bottom: 30px;
+      color: var(--accent);
+      font: 11px var(--mono);
+      letter-spacing: .4px;
+    }
+
+    .availability-dot {
+      height: 7px;
+      width: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .hero h1 {
+      font: 800 clamp(42px, 6.3vw, 78px)/1.06 var(--heading);
+      letter-spacing: -4px;
+      max-width: 780px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero-role {
+      font: 500 clamp(15px, 2vw, 20px) var(--heading);
+      color: #d3d9d4;
+      margin-top: 28px;
+    }
+
+    .hero-description {
+      color: var(--muted);
+      max-width: 630px;
+      font-size: 15px;
+      margin-top: 19px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #101b17;
+    }
+
+    .btn-primary:hover {
+      background: #b0f3db;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, #1c2421, #151a19);
+      padding: 28px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 28px;
+      height: 2px;
+      width: 55px;
+      background: var(--accent);
+    }
+
+    .profile-mark {
+      width: 65px;
+      height: 65px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(139,224,195,.4);
+      background: var(--accent-dark);
+      color: var(--accent);
+      font: 700 20px var(--heading);
+      border-radius: 50%;
+      margin-bottom: 23px;
+    }
+
+    .hero-card h3 {
+      font: 700 18px var(--heading);
+    }
+
+    .hero-card > p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .hero-card-line {
+      height: 1px;
+      background: var(--line);
+      margin: 23px 0;
+    }
+
+    .quick-fact {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 13px 0;
+      font-size: 12px;
+    }
+
+    .quick-fact span:first-child {
+      color: var(--subtle);
+    }
+
+    .quick-fact span:last-child {
+      text-align: right;
+      color: var(--text);
+    }
+
+    .hero-card .location-note {
+      color: var(--accent);
+      font: 10px var(--mono);
+      margin-top: 22px;
+    }
+
+    /* ABOUT */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 65px;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 2;
+      margin-bottom: 17px;
+    }
+
+    .about-copy strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .fact-card {
+      padding: 22px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+    }
+
+    .fact-card strong {
+      display: block;
+      font: 700 26px var(--heading);
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+
+    .fact-card span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* SKILLS */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 27px;
+      border-radius: 5px;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(139,224,195,.45);
+      transform: translateY(-3px);
+    }
+
+    .skill-card h3 {
+      font: 700 16px var(--heading);
+      margin: 14px 0 12px;
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .skill-index {
+      color: var(--accent);
+      font: 11px var(--mono);
+    }
+
+    /* PROJECTS */
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 17px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      min-height: 290px;
+      transition: transform .25s, border-color .25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(139,224,195,.45);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(120deg, #1c2924, #171c1b);
+      min-height: 320px;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .project-category {
+      color: var(--accent);
+      font: 10px var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+    }
+
+    .project-number {
+      color: var(--subtle);
+      font: 11px var(--mono);
+    }
+
+    .project-card h3 {
+      font: 700 21px/1.35 var(--heading);
+      margin: 23px 0 12px;
+      letter-spacing: -.5px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 700px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 20px;
+    }
+
+    .project-tags span {
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 5px 9px;
+      font-size: 10px;
+      color: #c4cec8;
+    }
+
+    .project-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: auto;
+      padding-top: 25px;
+    }
+
+    .project-link {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    .project-note {
+      color: var(--subtle);
+      font-size: 10px;
+    }
+
+    /* RESEARCH */
+
+    .research-panel {
+      border: 1px solid rgba(139,224,195,.25);
+      background: linear-gradient(135deg, #1b2823, #151a19);
+      border-radius: 7px;
+      padding: 38px;
+    }
+
+    .research-panel h3 {
+      font: 700 clamp(23px, 3vw, 34px)/1.3 var(--heading);
+      max-width: 800px;
+      margin: 15px 0;
+    }
+
+    .research-panel > p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 790px;
+    }
+
+    .research-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .result-box {
+      background: rgba(0,0,0,.18);
+      border: 1px solid var(--line);
+      padding: 20px;
+      border-radius: 4px;
+    }
+
+    .result-box strong {
+      display: block;
+      color: var(--accent);
+      font: 700 26px var(--heading);
+    }
+
+    .result-box span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .research-caveat {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 11px !important;
+    }
+
+    .research-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* EXPERIENCE */
+
+    .experience-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .experience-item {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 45px;
+      padding: 35px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .experience-date {
+      color: var(--accent);
+      font: 11px/1.8 var(--mono);
+    }
+
+    .experience-type {
+      color: var(--subtle);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .experience-item h3 {
+      font: 700 21px var(--heading);
+    }
+
+    .experience-company {
+      color: var(--accent);
+      font-size: 13px;
+      margin: 5px 0 15px;
+    }
+
+    .experience-item p,
+    .experience-points {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .experience-points {
+      padding-left: 18px;
+      margin-top: 12px;
+    }
+
+    .experience-points li {
+      padding-left: 5px;
+      margin-bottom: 6px;
+    }
+
+    .experience-points li::marker {
+      color: var(--accent);
+    }
+
+    .experience-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 19px;
+    }
+
+    .experience-tags span {
+      color: #c6d1ca;
+      background: rgba(139,224,195,.07);
+      border: 1px solid rgba(139,224,195,.15);
+      border-radius: 3px;
+      padding: 5px 9px;
+      font-size: 10px;
+    }
+
+    /* EDUCATION */
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .education-card {
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+    }
+
+    .education-card .year {
+      color: var(--accent);
+      font: 11px var(--mono);
+    }
+
+    .education-card h3 {
+      font: 700 19px var(--heading);
+      margin: 15px 0 8px;
+    }
+
+    .education-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .education-card .institution {
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    /* ADDITIONAL */
+
+    .additional-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .additional-item {
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .additional-item strong {
+      font-size: 13px;
+      display: block;
+    }
+
+    .additional-item span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* CONTACT */
+
+    .contact-section {
+      background: #151d19;
+      border-top: 1px solid rgba(139,224,195,.16);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr .8fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .contact-grid h2 {
+      font: 800 clamp(38px, 6vw, 66px)/1.08 var(--heading);
+      letter-spacing: -3px;
+      margin: 20px 0;
+    }
+
+    .contact-grid p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 540px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .contact-link {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .contact-link span:last-child {
+      color: var(--accent);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 25px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    footer p {
+      color: var(--subtle);
+      font-size: 11px;
+    }
+
+    footer a {
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    /* ANIMATIONS */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        max-width: 500px;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .experience-item {
+        grid-template-columns: 150px 1fr;
+        gap: 25px;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-heading p {
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 34px, var(--max));
+      }
+
+      .nav-inner {
+        padding: 0 17px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: #151a19;
+        padding: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 19px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .hero h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .section {
+        padding: 78px 0;
+      }
+
+      .skills-grid,
+      .project-grid,
+      .education-grid,
+      .additional-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured {
+        grid-column: auto;
+      }
+
+      .experience-item {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .research-panel {
+        padding: 23px;
+      }
+
+      .research-results {
+        grid-template-columns: 1fr;
+      }
+
+      .about-facts {
+        gap: 9px;
+      }
+
+      .fact-card {
+        padding: 16px;
+      }
+
+      .contact-grid h2 {
+        letter-spacing: -2px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- NAVIGATION -->
-  <header class="header">
-    <a href="#home" class="logo">AP<span>.</span></a>
+  <header class="navbar">
+    <nav class="nav-inner">
+      <a href="#home" class="brand">ANVITHA <span>PRIYAA.</span></a>
 
-    <nav class="nav">
-      <a href="#about">About</a>
-      <a href="#work">Projects</a>
-      <a href="#research">Research</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">
+        MENU
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact" class="nav-contact">Let's connect ↗</a>
+      </div>
     </nav>
   </header>
 
@@ -34,518 +981,889 @@
 
     <!-- HERO -->
     <section class="hero" id="home">
-      <div class="hero-left">
-        <p class="eyebrow">DATA SCIENCE · BUSINESS ANALYTICS · APPLIED AI</p>
+      <div class="container hero-grid">
 
-        <h1>
-          Anvitha<br>
-          Priyaa<br>
-          <em>Subramani.</em>
-        </h1>
+        <div class="reveal">
+          <div class="availability">
+            <span class="availability-dot"></span>
+            OPEN TO OPPORTUNITIES IN THE UNITED KINGDOM
+          </div>
 
-        <p class="hero-subtitle">
-          Turning data into decisions. Exploring intelligence through technology.
-        </p>
+          <p class="mono">DATA SCIENCE · AI · SOFTWARE ENGINEERING</p>
 
-        <p class="hero-description">
-          I am a Data Science postgraduate from Queen Mary University of London
-          with a background in Computer Science and Design. I enjoy working at
-          the intersection of data, analytical thinking, business problems and
-          artificial intelligence.
-        </p>
+          <h1>
+            Anvitha Priyaa
+            <span class="highlight">Vellal Subramani</span>
+          </h1>
 
-        <div class="hero-buttons">
-          <a href="#work" class="button-dark">Explore my work ↗</a>
-          <a href="#contact" class="button-outline">Get in touch</a>
+          <p class="hero-role">
+            Turning data, intelligent systems and ideas into practical solutions.
+          </p>
+
+          <p class="hero-description">
+            MSc Data Science graduate from Queen Mary University of London,
+            with a background in Computer Science and Design. Interested in
+            building reliable AI-driven applications, exploring machine
+            learning and translating complex data into meaningful insights.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">
+              Explore my work ↗
+            </a>
+            <a class="btn btn-secondary" href="#contact">
+              Get in touch
+            </a>
+          </div>
         </div>
 
-        <div class="hero-meta">
-          <span>Based in Bengaluru, India</span>
-          <span>Open to opportunities</span>
-        </div>
-      </div>
+        <aside class="hero-card reveal">
+          <div class="profile-mark">AP</div>
 
-      <div class="hero-highlights">
-        <div class="highlight-item">
-          <span class="highlight-number">01</span>
-          <span>Data Science & Analytics</span>
-        </div>
-        <div class="highlight-item">
-          <span class="highlight-number">02</span>
-          <span>Machine Learning & AI</span>
-        </div>
-        <div class="highlight-item">
-          <span class="highlight-number">03</span>
-          <span>Research & Problem Solving</span>
-        </div>
+          <p class="mono">A QUICK INTRODUCTION</p>
+          <h3>Curious by nature.<br>Analytical by approach.</h3>
+          <p>Building knowledge through research, experimentation and practical projects.</p>
+
+          <div class="hero-card-line"></div>
+
+          <div class="quick-fact">
+            <span>Education</span>
+            <span>MSc Data Science</span>
+          </div>
+
+          <div class="quick-fact">
+            <span>University</span>
+            <span>Queen Mary University of London</span>
+          </div>
+
+          <div class="quick-fact">
+            <span>Location</span>
+            <span>Bengaluru, India</span>
+          </div>
+
+          <div class="quick-fact">
+            <span>Career interest</span>
+            <span>AI · Data · Analytics</span>
+          </div>
+
+          <div class="hero-card-line"></div>
+
+          <p class="location-note">
+            SEEKING UK-BASED OPPORTUNITIES
+          </p>
+        </aside>
+
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section class="section intro" id="about">
-      <div class="section-heading">
-        <p class="eyebrow">01 / A LITTLE ABOUT ME</p>
-        <h2>Curious by nature.<br><em>Analytical by approach.</em></h2>
-      </div>
+    <section class="section" id="about">
+      <div class="container">
 
-      <div class="intro-content">
-        <div class="intro-text">
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">01 / ABOUT ME</p>
+            <h2>More than just<br><span class="accent">working with data.</span></h2>
+          </div>
           <p>
-            My journey began with Computer Science and Design, where I developed
-            an interest in building technology and understanding how people
-            interact with it. That curiosity led me to pursue a Master's in
-            Data Science at Queen Mary University of London.
-          </p>
-
-          <p>
-            Through academic research and practical projects, I have explored
-            machine learning, natural language processing, data mining,
-            statistical reasoning and multi-agent large language model
-            architectures.
-          </p>
-
-          <p>
-            I am particularly interested in applying analytical and technical
-            skills to real-world business challenges — from understanding
-            patterns in data to developing solutions that support better
-            decisions.
-          </p>
-
-          <p>
-            Beyond technology, I have spent years pursuing the performing arts
-            and sports. These experiences have shaped my discipline,
-            perseverance, creativity and ability to work towards long-term goals.
+            A multidisciplinary foundation across computer science,
+            analytics, machine learning and emerging AI technologies.
           </p>
         </div>
 
-        <div class="about-note">
-          <span class="note-mark">“</span>
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p>
+              I am a <strong>Data Science postgraduate from Queen Mary
+              University of London</strong> with an undergraduate degree
+              in Computer Science and Design.
+            </p>
+
+            <p>
+              My academic and project experience spans machine learning,
+              collaborative multi-agent LLM systems, data engineering,
+              statistical analysis and software development.
+            </p>
+
+            <p>
+              I enjoy approaching unfamiliar problems methodically:
+              understanding the requirements, breaking down complex tasks,
+              experimenting with possible solutions and evaluating results.
+            </p>
+
+            <p>
+              I am currently seeking opportunities in the
+              <strong>United Kingdom</strong> where I can contribute,
+              learn from experienced teams and grow as a technology
+              professional.
+            </p>
+          </div>
+
+          <div class="about-facts reveal">
+            <div class="fact-card">
+              <strong>MSc</strong>
+              <span>Data Science — QMUL</span>
+            </div>
+            <div class="fact-card">
+              <strong>BE</strong>
+              <span>Computer Science and Design</span>
+            </div>
+            <div class="fact-card">
+              <strong>AI/ML</strong>
+              <span>Research and experimentation</span>
+            </div>
+            <div class="fact-card">
+              <strong>UK</strong>
+              <span>Target job market</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">02 / TECHNICAL EXPERTISE</p>
+            <h2>Tools, technologies<br>& <span class="accent">capabilities.</span></h2>
+          </div>
           <p>
-            I believe the most meaningful work happens when curiosity,
-            creativity and structured thinking come together.
+            A practical technical toolkit developed through postgraduate
+            study, internships and independent project work.
           </p>
+        </div>
+
+        <div class="skills-grid">
+
+          <article class="skill-card reveal">
+            <span class="skill-index">01 — PROGRAMMING</span>
+            <h3>Programming & Software Development</h3>
+            <p>
+              Python, Java, SQL, pandas, NumPy, Jupyter Notebook,
+              Git, GitHub, object-oriented programming,
+              debugging and testing.
+            </p>
+          </article>
+
+          <article class="skill-card reveal">
+            <span class="skill-index">02 — ARTIFICIAL INTELLIGENCE</span>
+            <h3>AI & Machine Learning</h3>
+            <p>
+              Hugging Face Transformers, TinyLlama, multi-agent
+              LLM experimentation, scikit-learn, PyTorch,
+              feature engineering, classification, anomaly detection,
+              CNNs and Vision Transformers.
+            </p>
+          </article>
+
+          <article class="skill-card reveal">
+            <span class="skill-index">03 — DATA ENGINEERING</span>
+            <h3>Big Data & Processing</h3>
+            <p>
+              Apache Spark, PySpark, Spark Structured Streaming,
+              GraphFrames, event-time processing, watermarks,
+              windowing and checkpoint recovery.
+            </p>
+          </article>
+
+          <article class="skill-card reveal">
+            <span class="skill-index">04 — ANALYTICS</span>
+            <h3>Data Analysis & Business Intelligence</h3>
+            <p>
+              Power BI, Excel, data cleaning, validation,
+              reconciliation, statistical analysis, precision,
+              recall, confusion matrices and ROC analysis.
+            </p>
+          </article>
+
+          <article class="skill-card reveal">
+            <span class="skill-index">05 — APPLICATIONS</span>
+            <h3>Application Development & Integration</h3>
+            <p>
+              Java and SQL integration, application workflow design,
+              API integration concepts, OTP authentication workflows
+              and payment integration requirements.
+            </p>
+          </article>
+
+          <article class="skill-card reveal">
+            <span class="skill-index">06 — PROFESSIONAL</span>
+            <h3>Problem-solving & Collaboration</h3>
+            <p>
+              Analytical thinking, structured problem-solving,
+              technical documentation, requirements understanding,
+              learning agility and continuous improvement.
+            </p>
+          </article>
+
         </div>
       </div>
     </section>
 
     <!-- PROJECTS -->
-    <section class="section work" id="work">
-      <div class="section-heading">
-        <p class="eyebrow">02 / SELECTED WORK</p>
-        <h2>Projects & <em>experiments.</em></h2>
-        <p class="section-description">
-          A selection of academic research, data analysis and application
-          development projects.
-        </p>
-      </div>
+    <section class="section" id="projects">
+      <div class="container">
 
-      <div class="project-grid">
-
-        <!-- PROJECT 1 -->
-        <article class="project-card featured">
-          <div class="project-visual visual-one">
-            <span class="visual-label">RESEARCH PROJECT</span>
-            <span class="visual-symbol">AI</span>
-            <span class="visual-bottom">MULTI-AGENT ARCHITECTURES</span>
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">03 / SELECTED WORK</p>
+            <h2>Projects built through<br><span class="accent">curiosity and experimentation.</span></h2>
           </div>
+          <p>
+            A selection of academic and practical projects across
+            AI, machine learning, data engineering and application development.
+          </p>
+        </div>
 
-          <div class="project-info">
-            <div class="project-type">
-              <span>01 / DISSERTATION</span>
-              <span>2026</span>
+        <div class="project-grid">
+
+          <!-- FEATURED PROJECT -->
+          <article class="project-card featured reveal">
+            <div class="project-top">
+              <span class="project-category">FEATURED · POSTGRADUATE RESEARCH</span>
+              <span class="project-number">01 / 08</span>
             </div>
 
-            <h3>Collaborative Multi-Agent LLM Architectures</h3>
+            <h3>Collaborative Multi-Agent LLM Architectures for Long-Context Code Analysis</h3>
 
             <p>
-              Investigating collaborative multi-agent large language model
-              architectures for long-context code analysis, comparing
-              different agent coordination and validation approaches.
+              Investigated how different multi-agent architectures can
+              support long-context code analysis. Designed and compared
+              five approaches using TinyLlama and CodeSearchNet samples,
+              examining response quality, task behaviour and computational
+              overhead across four code-analysis tasks.
             </p>
 
-            <div class="tags">
+            <div class="project-tags">
               <span>Python</span>
-              <span>LLMs</span>
-              <span>TinyLlama</span>
               <span>Hugging Face</span>
-              <span>Research</span>
+              <span>TinyLlama</span>
+              <span>Multi-Agent LLMs</span>
+              <span>Google Colab</span>
+              <span>CodeSearchNet</span>
             </div>
 
-            <a
-              href="https://github.com/anvithasubramani/Collaborative-multi-agent-large-language-model-architecture-for-long-context-code-analysis"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-link">
-              Explore repository ↗
-            </a>
-          </div>
-        </article>
+            <div class="project-bottom">
+              <a class="project-link"
+                href="https://github.com/anvithasubramani/Collaborative-multi-agent-large-language-model-architecture-for-long-context-code-analysis"
+                target="_blank" rel="noopener noreferrer">
+                View dissertation repository ↗
+              </a>
+              <span class="project-note">MSc Dissertation</span>
+            </div>
+          </article>
 
-        <!-- PROJECT 2 -->
-        <article class="project-card">
-          <div class="project-visual visual-two">
-            <span class="visual-label">DATA ANALYSIS</span>
-            <span class="visual-symbol">∑</span>
-            <span class="visual-bottom">DISCOVERING PATTERNS</span>
-          </div>
-
-          <div class="project-info">
-            <div class="project-type">
-              <span>02 / DATA MINING</span>
-              <span>ACADEMIC</span>
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">APPLICATION DEVELOPMENT</span>
+              <span class="project-number">02 / 08</span>
             </div>
 
-            <h3>Data Mining & Statistical Exploration</h3>
+            <h3>Temple Seva-Booking Application</h3>
 
             <p>
-              A collection of data mining exercises exploring data cleaning,
-              data cube creation, principal component analysis and
-              exploratory analysis using different datasets.
+              Worked on planning a digital booking workflow for temple
+              seva services. Explored the user journey, booking
+              information, payment integration requirements and
+              OTP-based verification.
             </p>
 
-            <div class="tags">
-              <span>Python</span>
-              <span>Data Mining</span>
-              <span>PCA</span>
-              <span>Data Cleaning</span>
+            <div class="project-tags">
+              <span>Application Workflow</span>
+              <span>Razorpay Requirements</span>
+              <span>OTP Verification</span>
+              <span>Integration Concepts</span>
             </div>
 
-            <a
-              href="https://github.com/anvithasubramani/DATA_MINING"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-link">
-              Explore repository ↗
-            </a>
-          </div>
-        </article>
+            <div class="project-bottom">
+              <span class="project-note">Application concept and workflow work</span>
+            </div>
+          </article>
 
-        <!-- PROJECT 3 -->
-        <article class="project-card">
-          <div class="project-visual visual-three">
-            <span class="visual-label">NATURAL LANGUAGE PROCESSING</span>
-            <span class="visual-symbol">“ ”</span>
-            <span class="visual-bottom">UNDERSTANDING SENTIMENT</span>
-          </div>
-
-          <div class="project-info">
-            <div class="project-type">
-              <span>03 / NLP PROJECT</span>
-              <span>ACADEMIC</span>
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">NATURAL LANGUAGE PROCESSING</span>
+              <span class="project-number">03 / 08</span>
             </div>
 
-            <h3>Social Media Sentiment Classification</h3>
+            <h3>Twitter Sentiment Classification</h3>
 
             <p>
-              A Twitter sentiment analysis project using Natural Language
-              Processing techniques and a Support Vector Machine (SVM)
-              classifier to explore sentiment classification.
+              Developed baseline and optimised Support Vector Machine
+              approaches for sentiment classification, evaluating
+              model performance using accuracy and F1-score.
             </p>
 
-            <div class="tags">
-              <span>NLP</span>
+            <div class="project-tags">
               <span>Python</span>
               <span>SVM</span>
+              <span>NLP</span>
               <span>Classification</span>
             </div>
 
-            <a
-              href="https://github.com/anvithasubramani/social-media-sentiment-classification"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-link">
-              Explore repository ↗
-            </a>
-          </div>
-        </article>
+            <div class="project-bottom">
+              <a class="project-link"
+                href="https://github.com/anvithasubramani/twitter-sentiment-classification"
+                target="_blank" rel="noopener noreferrer">
+                View project ↗
+              </a>
+              <span class="project-note">Academic project</span>
+            </div>
+          </article>
 
-        <!-- PROJECT 4 -->
-        <article class="project-card">
-          <div class="project-visual visual-four">
-            <span class="visual-label">APPLICATION DEVELOPMENT</span>
-            <span class="visual-symbol">✳</span>
-            <span class="visual-bottom">DIGITAL SEVA EXPERIENCE</span>
-          </div>
-
-          <div class="project-info">
-            <div class="project-type">
-              <span>04 / APPLICATION PROJECT</span>
-              <span>PRIVATE PROJECT</span>
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">BIG DATA ANALYTICS</span>
+              <span class="project-number">04 / 08</span>
             </div>
 
-            <h3>Temple Seva Booking Platform</h3>
+            <h3>Expedia Hotel Search Analytics</h3>
 
             <p>
-              A digital platform concept designed to simplify temple seva
-              bookings through an online experience, incorporating
-              authentication and payment workflow integrations.
+              Analysed approximately 5.2 million search impressions
+              across 399,000 sessions to investigate click-through,
+              booking conversion, ranking-position bias, seasonality
+              and destination popularity.
             </p>
 
-            <div class="tags">
-              <span>Web Application</span>
-              <span>Razorpay</span>
-              <span>Twilio</span>
-              <span>AI-assisted Development</span>
+            <div class="project-tags">
+              <span>Apache Spark</span>
+              <span>PySpark</span>
+              <span>Big Data</span>
+              <span>Analytics</span>
             </div>
 
-            <span class="private-project-note">
-              Private project · Source code not publicly available
-            </span>
-          </div>
-        </article>
+            <div class="project-bottom">
+              <span class="project-note">Postgraduate data project</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">COMPUTER VISION</span>
+              <span class="project-number">05 / 08</span>
+            </div>
+
+            <h3>Satellite Image Classification</h3>
+
+            <p>
+              Applied a Vision Transformer to classify satellite images
+              across ten land-cover categories using the EuroSAT dataset.
+              Explored model training and epoch-specific test performance.
+            </p>
+
+            <div class="project-tags">
+              <span>PyTorch</span>
+              <span>Vision Transformer</span>
+              <span>EuroSAT</span>
+              <span>Computer Vision</span>
+            </div>
+
+            <div class="project-bottom">
+              <span class="project-note">Machine learning project</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">GRAPH ANALYTICS</span>
+              <span class="project-number">06 / 08</span>
+            </div>
+
+            <h3>NYC Yellow Taxi Trip Network Analysis</h3>
+
+            <p>
+              Represented taxi trips between 265 zones as a graph
+              with more than 21 million trip edges. Explored network
+              structure using connectivity, degree analysis,
+              shortest paths, PageRank and community detection.
+            </p>
+
+            <div class="project-tags">
+              <span>Apache Spark</span>
+              <span>GraphFrames</span>
+              <span>PageRank</span>
+              <span>Network Analysis</span>
+            </div>
+
+            <div class="project-bottom">
+              <span class="project-note">Big data project</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">STREAM PROCESSING</span>
+              <span class="project-number">07 / 08</span>
+            </div>
+
+            <h3>Real-Time Sensor Analytics</h3>
+
+            <p>
+              Built a streaming workflow using event-time processing,
+              watermarks, tumbling and sliding windows, stateful
+              aggregations and threshold-based alerts.
+            </p>
+
+            <div class="project-tags">
+              <span>PySpark</span>
+              <span>Structured Streaming</span>
+              <span>Event-time Processing</span>
+              <span>Data Engineering</span>
+            </div>
+
+            <div class="project-bottom">
+              <span class="project-note">Data engineering project</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top">
+              <span class="project-category">MACHINE LEARNING</span>
+              <span class="project-number">08 / 08</span>
+            </div>
+
+            <h3>EastEnders Character Similarity</h3>
+
+            <p>
+              Explored character similarity using vector-space
+              semantics and TF-IDF representations, evaluating
+              retrieval and similarity performance.
+            </p>
+
+            <div class="project-tags">
+              <span>Python</span>
+              <span>TF-IDF</span>
+              <span>Vector Space Models</span>
+              <span>NLP</span>
+            </div>
+
+            <div class="project-bottom">
+              <a class="project-link"
+                href="https://github.com/anvithasubramani/eastenders-character-similarity"
+                target="_blank" rel="noopener noreferrer">
+                View project ↗
+              </a>
+              <span class="project-note">Academic project</span>
+            </div>
+          </article>
+
+        </div>
+
+        <p style="color:var(--subtle);font-size:11px;margin-top:20px;">
+          More technical work is available on my GitHub profile.
+        </p>
+
+        <a class="research-link"
+          href="https://github.com/anvithasubramani"
+          target="_blank" rel="noopener noreferrer">
+          Explore all GitHub repositories ↗
+        </a>
 
       </div>
     </section>
 
-    <!-- DISSERTATION / RESEARCH -->
-    <section class="section research" id="research">
-      <div class="section-heading">
-        <p class="eyebrow">03 / POSTGRADUATE RESEARCH</p>
-        <h2>Exploring the future of <em>AI.</em></h2>
-      </div>
+    <!-- RESEARCH -->
+    <section class="section" id="research">
+      <div class="container">
 
-      <div class="research-intro">
-        <div>
-          <p class="research-label">MASTER'S DISSERTATION</p>
-          <h3>
-            Collaborative Multi-Agent Large Language Model Architectures
-            for Long-Context Code Analysis
-          </h3>
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">04 / RESEARCH SPOTLIGHT</p>
+            <h2>Exploring the future<br>of <span class="accent">collaborative AI.</span></h2>
+          </div>
           <p>
-            My dissertation investigated how different multi-agent
-            architectures can approach long-context code analysis.
-            The work involved implementing and comparing five architectural
-            approaches using language models and code samples.
-          </p>
-          <p class="research-supervisor">
-            Supervisor: Dr Lev Mukhanov · Queen Mary University of London
+            My MSc dissertation investigated architectural trade-offs
+            in multi-agent language model systems.
           </p>
         </div>
 
-        <div class="architecture-list">
-          <div class="architecture-item">
-            <span>01</span>
-            <span>Single-Agent Baseline</span>
-          </div>
-          <div class="architecture-item">
-            <span>02</span>
-            <span>Sequential Multi-Agent</span>
-          </div>
-          <div class="architecture-item">
-            <span>03</span>
-            <span>Planner–Reviewer</span>
-          </div>
-          <div class="architecture-item">
-            <span>04</span>
-            <span>Planner–Reviewer–Validator</span>
-          </div>
-          <div class="architecture-item">
-            <span>05</span>
-            <span>Hybrid Chunked Multi-Agent</span>
-          </div>
-        </div>
-      </div>
+        <div class="research-panel reveal">
+          <span class="mono">MSc DISSERTATION · QUEEN MARY UNIVERSITY OF LONDON</span>
 
-      <div class="research-details">
-        <div>
-          <span class="detail-label">TECHNOLOGY</span>
-          <p>Python · TinyLlama-1.1B-Chat · Hugging Face Transformers · Google Colab</p>
+          <h3>
+            Collaborative Multi-Agent Large Language Model
+            Architectures for Long-Context Code Analysis
+          </h3>
+
+          <p>
+            The study compared five LLM architectures across bug
+            detection, code optimisation, code summarisation and
+            long-context reasoning. The aim was to understand how
+            architectural choices influenced response quality
+            and computational overhead.
+          </p>
+
+          <div class="research-results">
+            <div class="result-box">
+              <strong>5</strong>
+              <span>Architectures compared</span>
+            </div>
+
+            <div class="result-box">
+              <strong>4</strong>
+              <span>Code-analysis tasks</span>
+            </div>
+
+            <div class="result-box">
+              <strong>100</strong>
+              <span>Benchmark evaluations</span>
+            </div>
+          </div>
+
+          <p class="research-caveat">
+            The evaluation used heuristic quality measures and a
+            limited benchmark sample. Results should be interpreted
+            as comparative experimental findings, not as validated
+            real-world code-analysis accuracy.
+          </p>
+
+          <a class="research-link"
+            href="https://github.com/anvithasubramani/Collaborative-multi-agent-large-language-model-architecture-for-long-context-code-analysis"
+            target="_blank" rel="noopener noreferrer">
+            Explore the research and implementation ↗
+          </a>
         </div>
-        <div>
-          <span class="detail-label">DATA</span>
-          <p>CodeSearchNet samples</p>
-        </div>
+
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section class="section skills" id="skills">
-      <div class="section-heading">
-        <p class="eyebrow">04 / CAPABILITIES</p>
-        <h2>Tools, techniques & <em>thinking.</em></h2>
-      </div>
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
 
-      <div class="skills-grid">
-        <div class="skill-group">
-          <span class="skill-number">01</span>
-          <h3>Programming & Data</h3>
-          <p>Python, SQL, Excel, Data Cleaning, Data Validation, Data Analysis</p>
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">05 / PROFESSIONAL EXPERIENCE</p>
+            <h2>Learning through<br><span class="accent">real-world application.</span></h2>
+          </div>
+          <p>
+            Internship experience across data analysis,
+            reporting and software development.
+          </p>
         </div>
 
-        <div class="skill-group">
-          <span class="skill-number">02</span>
-          <h3>Analytics & Visualisation</h3>
-          <p>Statistical Analysis, Data Visualisation, Power BI, Tableau, Looker Studio</p>
-        </div>
+        <div class="experience-list">
 
-        <div class="skill-group">
-          <span class="skill-number">03</span>
-          <h3>AI & Machine Learning</h3>
-          <p>Machine Learning, NLP, Neural Networks, Deep Learning, Large Language Models</p>
-        </div>
+          <article class="experience-item reveal">
+            <div class="experience-date">
+              FEB 2025 — MAY 2025
+              <br><br>
+              <span class="experience-type">INTERNSHIP</span>
+            </div>
 
-        <div class="skill-group">
-          <span class="skill-number">04</span>
-          <h3>Research & Problem Solving</h3>
-          <p>Experimentation, Quantitative Reasoning, Research Methodology, Critical Thinking</p>
+            <div>
+              <h3>Data Analyst Intern</h3>
+              <div class="experience-company">Wipro Limited</div>
+
+              <p>
+                Supported data analysis and fraud-detection workflows,
+                working with transaction records and contributing to
+                data quality, validation and reporting activities.
+              </p>
+
+              <ul class="experience-points">
+                <li>
+                  Worked with 280,000+ transaction records to support
+                  data analysis and fraud-detection activities.
+                </li>
+                <li>
+                  Performed data validation and reconciliation to
+                  support consistency and reliability of analytical data.
+                </li>
+                <li>
+                  Supported fraud-detection model evaluation and
+                  reviewed classification performance.
+                </li>
+                <li>
+                  Built Power BI reports to present analytical
+                  information and support reporting workflows.
+                </li>
+                <li>
+                  Developed practical exposure to data quality,
+                  analytical processes and business-oriented reporting.
+                </li>
+              </ul>
+
+              <div class="experience-tags">
+                <span>Power BI</span>
+                <span>Data Analysis</span>
+                <span>Fraud Detection</span>
+                <span>Data Validation</span>
+                <span>Reconciliation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="experience-item reveal">
+            <div class="experience-date">
+              NOV 2024 — DEC 2024
+              <br><br>
+              <span class="experience-type">INTERNSHIP</span>
+            </div>
+
+            <div>
+              <h3>Full Stack Development Intern</h3>
+              <div class="experience-company">Prinston Smart Engineers</div>
+
+              <p>
+                Gained practical software development experience
+                through Java application development, SQL integration
+                and functionality testing.
+              </p>
+
+              <ul class="experience-points">
+                <li>
+                  Developed Java applications with SQL integration.
+                </li>
+                <li>
+                  Worked on application functionality and
+                  database-related operations.
+                </li>
+                <li>
+                  Debugged application functionality and checked
+                  outputs against requirements.
+                </li>
+                <li>
+                  Applied object-oriented programming concepts
+                  to structure application components.
+                </li>
+                <li>
+                  Strengthened problem-solving and software testing
+                  skills through practical development work.
+                </li>
+              </ul>
+
+              <div class="experience-tags">
+                <span>Java</span>
+                <span>SQL</span>
+                <span>OOP</span>
+                <span>Debugging</span>
+                <span>Software Development</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
     <!-- EDUCATION -->
-    <section class="section education" id="education">
-      <div class="section-heading">
-        <p class="eyebrow">05 / EDUCATION</p>
-        <h2>Learning that shaped <em>my journey.</em></h2>
-      </div>
+    <section class="section" id="education">
+      <div class="container">
 
-      <div class="education-row">
-        <div class="education-date">2025 — 2026</div>
-        <div class="education-content">
-          <p class="education-place">QUEEN MARY UNIVERSITY OF LONDON</p>
-          <h3>MSc Data Science</h3>
-          <p>London, United Kingdom · Completed 14 September 2026</p>
-
-          <div class="module-results">
-            <h4>Module-level distinctions</h4>
-            <p>
-              Risk and Decision-Making for Data Science and AI ·
-              Digital Media and Social Networks ·
-              Data Mining · Natural Language Processing
-            </p>
-
-            <h4>Module-level merits</h4>
-            <p>
-              Principles of Machine Learning ·
-              Neural Networks and Deep Learning · Applied Statistics
-            </p>
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">06 / EDUCATION</p>
+            <h2>Academic foundation.<br><span class="accent">Continuous learning.</span></h2>
           </div>
+          <p>
+            A foundation in computer science followed by postgraduate
+            specialisation in data science.
+          </p>
+        </div>
+
+        <div class="education-grid">
+
+          <article class="education-card reveal">
+            <span class="year">SEPTEMBER 2025 — SEPTEMBER 2026</span>
+            <h3>MSc Data Science</h3>
+            <p class="institution">Queen Mary University of London</p>
+            <p>
+              Completed 14 September 2026 · Overall result: Merit.
+              <br>
+              Relevant study: Machine Learning, Applied Statistics,
+              Big Data Processing, NLP and Risk and Decision-Making
+              for Data Science and AI.
+            </p>
+          </article>
+
+          <article class="education-card reveal">
+            <span class="year">AUGUST 2021 — JUNE 2025</span>
+            <h3>B.E. Computer Science and Design</h3>
+            <p class="institution">MVJ College of Engineering, Bengaluru</p>
+            <p>
+              First Class with Distinction.
+              <br>
+              Foundations in algorithms, databases,
+              software engineering and object-oriented programming.
+            </p>
+          </article>
+
         </div>
       </div>
+    </section>
 
-      <div class="education-row">
-  <div class="education-date">Undergraduate</div>
-  <div class="education-content">
-    <p class="education-place">MVJ COLLEGE OF ENGINEERING</p>
-    <h3>BE Computer Science and Design</h3>
-    <p>Bengaluru, India</p>
-    <p class="education-honour">First Class with Distinction</p>
+    <!-- OTHER PROJECTS -->
+    <section class="section">
+      <div class="container">
 
-    <div class="module-results">
-      <h4>Academic Highlight</h4>
-      <p>
-        <strong>10/10 CGPA</strong> in Final Major Project,
-        involving internship experience at Wipro.
-      </p>
-    </div>
-  </div>
-</div>
-
-    <!-- BEYOND TECHNOLOGY -->
-    <section class="section beyond" id="beyond">
-      <div class="section-heading">
-        <p class="eyebrow">06 / BEYOND TECHNOLOGY</p>
-        <h2>A life beyond <em>the screen.</em></h2>
-        <p class="section-description">
-          Discipline, expression and perseverance have always been part of
-          my journey — both inside and outside the world of technology.
-        </p>
-      </div>
-
-      <div class="beyond-grid">
-
-        <div class="beyond-item">
-          <span class="beyond-number">01</span>
-          <p class="beyond-category">CLASSICAL DANCE</p>
-          <h3>Bharatanatyam</h3>
+        <div class="section-heading reveal">
+          <div>
+            <p class="mono">07 / ADDITIONAL TECHNICAL WORK</p>
+            <h2>Further exploration.</h2>
+          </div>
           <p>
-            13+ years of training and practice in the Indian classical dance
-            form. A performing artist and disciple of Natyacharya
-            Shri Mithun Shyam.
+            Additional projects that demonstrate my interest
+            in applying technology across different problem areas.
           </p>
         </div>
 
-        <div class="beyond-item">
-          <span class="beyond-number">02</span>
-          <p class="beyond-category">MUSIC</p>
-          <h3>Singing & Music</h3>
-          <p>
-            17 years of musical learning and experience as a singer
-            and performing artist.
-          </p>
-        </div>
+        <div class="additional-grid">
 
-        <div class="beyond-item">
-          <span class="beyond-number">03</span>
-          <p class="beyond-category">SPORTS</p>
-          <h3>Swimming</h3>
-          <p>
-            State-level swimmer, with a passion for athletic discipline,
-            endurance and continuous improvement.
-          </p>
-        </div>
+          <div class="additional-item reveal">
+            <strong>Credit Card Fraud Detection</strong>
+            <span>Python · SQL · Machine Learning</span>
+          </div>
 
-        <div class="beyond-item">
-          <span class="beyond-number">04</span>
-          <p class="beyond-category">SPORTS</p>
-          <h3>Badminton</h3>
-          <p>
-            Medal-winning badminton player, developing focus,
-            consistency and competitive spirit.
-          </p>
-        </div>
+          <div class="additional-item reveal">
+            <strong>Song Recognition from Hummed Audio</strong>
+            <span>Librosa · scikit-learn · PCA · SVM</span>
+          </div>
 
+          <div class="additional-item reveal">
+            <strong>Smart Streetlight Fault Detection</strong>
+            <span>Arduino · ESP8266 · Sensors · IoT</span>
+          </div>
+
+          <div class="additional-item reveal">
+            <strong>Java Console ATM System</strong>
+            <span>Java · SQL · Object-Oriented Design</span>
+          </div>
+
+          <div class="additional-item reveal">
+            <strong>Image Steganography with Genetic Algorithms</strong>
+            <span>Image Processing · Genetic Algorithms</span>
+          </div>
+
+          <div class="additional-item reveal">
+            <strong>Data Mining and Statistical Analysis</strong>
+            <span>EDA · PCA · Clustering · TF-IDF</span>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section class="section contact" id="contact">
-      <p class="eyebrow">07 / LET'S CONNECT</p>
+    <section class="section contact-section" id="contact">
+      <div class="container contact-grid">
 
-      <h2>Have an interesting<br>opportunity in <em>mind?</em></h2>
+        <div class="reveal">
+          <p class="mono">08 / CONTACT</p>
 
-      <p class="contact-description">
-        I am open to opportunities across Data Science, Business Analytics,
-        AI/ML and related analytical roles. I would love to connect,
-        collaborate and learn.
-      </p>
+          <h2>
+            Let's build<br>
+            something <span class="accent">meaningful.</span>
+          </h2>
 
-      <a href="mailto:anvithapriyaa@gmail.com" class="button-light">
-        Say hello ↗
-      </a>
+          <p>
+            I am actively exploring early-career opportunities in
+            the United Kingdom across Data Science, AI/ML,
+            Software Engineering and Business Analytics.
+            If my background aligns with your team, I would love
+            to connect.
+          </p>
 
-      <div class="social-links">
-        <a
-          href="mailto:anvithapriyaa@gmail.com"
-          target="_blank">
-          Email
-        </a>
+          <div class="hero-actions">
+            <a class="btn btn-primary"
+              href="mailto:anvithapriyaa@gmail.com">
+              Contact me ↗
+            </a>
+          </div>
+        </div>
 
-        <a
-          href="https://www.linkedin.com/in/anvitha-subramani-717356305/"
-          target="_blank"
-          rel="noopener noreferrer">
-          LinkedIn
-        </a>
+        <div class="contact-links reveal">
 
-        <a
-          href="https://github.com/anvithasubramani"
-          target="_blank"
-          rel="noopener noreferrer">
-          GitHub
-        </a>
+          <a class="contact-link"
+            href="mailto:anvithapriyaa@gmail.com">
+            <span>Email</span>
+            <span>↗</span>
+          </a>
+
+          <a class="contact-link"
+            href="https://www.linkedin.com/in/anvitha-subramani-717356305/"
+            target="_blank" rel="noopener noreferrer">
+            <span>LinkedIn</span>
+            <span>↗</span>
+          </a>
+
+          <a class="contact-link"
+            href="https://github.com/anvithasubramani"
+            target="_blank" rel="noopener noreferrer">
+            <span>GitHub</span>
+            <span>↗</span>
+          </a>
+
+          <div class="contact-link">
+            <span>Based in Bengaluru, India</span>
+            <span>IN</span>
+          </div>
+
+          <div class="contact-link">
+            <span>Open to UK opportunities</span>
+            <span>UK</span>
+          </div>
+
+        </div>
+
       </div>
     </section>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <a href="#home" class="logo">AP<span>.</span></a>
-    <p>Designed with curiosity and intention.</p>
-    <p>© 2026 Anvitha Priyaa Vellal Subramani</p>
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Anvitha Priyaa Vellal Subramani. All rights reserved.</p>
+      <a href="#home">Back to top ↑</a>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", isOpen);
+      menuToggle.textContent = isOpen ? "CLOSE" : "MENU";
+    });
+
+    // Close mobile menu after selecting a link
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "MENU";
+      });
+    });
+
+    // Automatically update footer year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+
 </body>
 </html>
